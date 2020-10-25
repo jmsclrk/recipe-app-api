@@ -24,7 +24,7 @@ class AdminSiteTests(TestCase):
         # use reverse to prevent having to change when url changes
         url = reverse('admin:core_user_changelist')
         res = self.client.get(url)
-        
+
         # also checks for status 200 code
         self.assertContains(res, self.user.name)
         self.assertContains(res, self.user.email)
