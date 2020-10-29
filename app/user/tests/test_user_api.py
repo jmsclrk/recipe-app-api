@@ -8,8 +8,10 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
+
 
 # Clean practice to separate private and public api tests
 # Private eg change password, public eg create user
@@ -38,18 +40,21 @@ class PublicUserApiTests(TestCase):
         payload = {'email': 'test@jamesclark.com', 'password': 'testpass'}
         create_user(**payload)
 
-        res = self.clent.post(CREATE_USER_URL, payload)
+        res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_password_too_short(self):
         """Test that the password must be more than 5 characters"""
-        payload = {'email': 'test@jamesclark.com', 'password': 'pw'}
+        payload = {
+            'email': 'test@jamesclark.com',
+            'password': 'pw',
+            'name': 'Test Name'
+        }
         res = self.client.post(CREATE_USER_URL, payload)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
         user_exists = get_user_model().objects.filter(
             email=payload['email']
         ).exists()
-        self.assertFalse(user_exists
-)
+        self.assertFalse(user_exists)
