@@ -1,6 +1,6 @@
 {
-    "python.analysis.diagnosticSeverityOverrides": {
-        "reportMissingModuleSource": "none",
-        "reportMissingImports": "none"
-    }
+    "python.analysis.extraPaths": [
+        "/Users/jamesclark/Documents/Coding/python/recipe-app-api/app",
+        "/Users/jamesclark/Documents/Coding/python/recipe-app-api"
+    ]
 }
